@@ -22,6 +22,8 @@ if not st.session_state["authenticated"]:
         if authenticate(username, password):
             st.session_state["authenticated"] = True
             st.success("Login successful!")
+            # Add a rerun to immediately refresh the interface
+            st.experimental_set_query_params()  # Safe way to trigger rerun
         else:
             st.error("Invalid username or password.")
 else:
@@ -31,5 +33,5 @@ else:
     # Logout button
     if st.button("Logout"):
         st.session_state["authenticated"] = False
-        st.experimental_rerun()
+        st.experimental_set_query_params()  # Safe way to trigger rerun
 
